@@ -48,7 +48,7 @@ sealed class ResponseBody {
 
 fun main() = Window(title = "Dudu's HTTP Client") {
   var url by remember { mutableStateOf("https://reqres.in/api/users/2") }
-  var method by remember { mutableStateOf(httpMethods.first()) }
+  val (method, setMethod) = remember { mutableStateOf(httpMethods.first()) }
   var responseBody: ResponseBody by remember { mutableStateOf(ResponseBody.Content("")) }
 
   MaterialTheme {
@@ -61,7 +61,7 @@ fun main() = Window(title = "Dudu's HTTP Client") {
       ) {
         HttpMethodMenu(
           toggleModifier = Modifier.width(httpMethodMenuWidth).fillMaxHeight(),
-          onValueChanged = { newValue -> method = newValue }
+          onValueChanged = setMethod
         )
         Spacer(modifier = Modifier.width(10.dp))
         TextField(
